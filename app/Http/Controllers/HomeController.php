@@ -32,4 +32,15 @@ class HomeController extends Controller
         ];
         return view('index', $data);
     }
+
+
+    public function developers()
+    {
+        return response()->json([
+            'name'      => 'Fajar Ramadana',
+            'email'     => 'fajarramadana25@gmail.com',
+            'phone'     => '0895330078691',
+            'company'   => 'PT. Purnama Sinar Gemilang'
+        ]);
+    }
 }

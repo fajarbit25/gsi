@@ -21,5 +21,11 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@globalsurvindo.com',
             'password' => Hash::make('6lobal5urvindo')
         ]);
+
+        User::factory()->create([
+            'name' => 'Fajar Ramadana',
+            'email' => 'fajar@globalsurvindo.com',
+            'password' => Hash::make('6lobal5urvindo')
+        ]);
     }
 }
