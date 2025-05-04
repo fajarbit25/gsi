@@ -29,7 +29,11 @@ class SettingResource extends Resource
         return $form
             ->schema([
                 Card::make()->schema([
-                    FileUpload::make('favicon')->directory('img-setting')->required(),
+                    FileUpload::make('favicon')
+                    ->image()
+                    ->directory('img-setting')
+                    ->visibility('public')
+                    ->required(),
                     FileUpload::make('logo')->directory('img-setting')->required(),
                     FileUpload::make('background')->directory('img-setting')->required(),
                     TextInput::make('title')->required(),

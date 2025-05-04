@@ -2,25 +2,24 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\GalleryResource\Pages;
-use App\Filament\Resources\GalleryResource\RelationManagers;
-use App\Models\Gallery;
+use App\Filament\Resources\ContactResource\Pages;
+use App\Filament\Resources\ContactResource\RelationManagers;
+use App\Models\Contact;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Columns\ImageColumn;
-use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class GalleryResource extends Resource
+class ContactResource extends Resource
 {
-    protected static ?string $model = Gallery::class;
+    protected static ?string $model = Contact::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -29,15 +28,12 @@ class GalleryResource extends Resource
         return $form
             ->schema([
                 Card::make()->schema([
-                    FileUpload::make('photo')
-                    ->directory('gallery')
-                    ->visibility('public')
-                    ->imageResizeMode('cover')
-                    ->imageCropAspectRatio('1:1')
-                    ->imageResizeTargetWidth('1080')
-                    ->imageResizeTargetHeight('1080')
-                    ->required(),
-                    // SpatieMediaLibraryFileUpload::make('photo')
+                    TextInput::make('name')->required(),
+                    RichEditor::make('address')->required(),
+                    TextInput::make('regency')->required(),
+                    TextInput::make('phone')->required(),
+                    TextInput::make('email')->required(),
+                    TextInput::make('maps')->required(),
                 ]),
             ]);
     }
@@ -46,8 +42,10 @@ class GalleryResource extends Resource
     {
         return $table
             ->columns([
-                // SpatieMediaLibraryImageColumn::make('photo')
-                ImageColumn::make('photo')
+                TextColumn::make('name'),
+                TextColumn::make('phone'),
+                TextColumn::make('email'),
+                TextColumn::make('address')->limit('30'),
             ])
             ->filters([
                 //
@@ -72,9 +70,9 @@ class GalleryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListGalleries::route('/'),
-            'create' => Pages\CreateGallery::route('/create'),
-            'edit' => Pages\EditGallery::route('/{record}/edit'),
+            'index' => Pages\ListContacts::route('/'),
+            'create' => Pages\CreateContact::route('/create'),
+            'edit' => Pages\EditContact::route('/{record}/edit'),
         ];
     }
 }

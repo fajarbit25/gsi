@@ -2,25 +2,25 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\GalleryResource\Pages;
-use App\Filament\Resources\GalleryResource\RelationManagers;
-use App\Models\Gallery;
+use App\Filament\Resources\PartnertResource\Pages;
+use App\Filament\Resources\PartnertResource\RelationManagers;
+use App\Models\Partnert;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\ImageColumn;
-use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class GalleryResource extends Resource
+class PartnertResource extends Resource
 {
-    protected static ?string $model = Gallery::class;
+    protected static ?string $model = Partnert::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -29,15 +29,11 @@ class GalleryResource extends Resource
         return $form
             ->schema([
                 Card::make()->schema([
-                    FileUpload::make('photo')
-                    ->directory('gallery')
+                    TextInput::make('name')->required(),
+                    FileUpload::make('logo')
+                    ->directory('partnert')
                     ->visibility('public')
-                    ->imageResizeMode('cover')
-                    ->imageCropAspectRatio('1:1')
-                    ->imageResizeTargetWidth('1080')
-                    ->imageResizeTargetHeight('1080')
                     ->required(),
-                    // SpatieMediaLibraryFileUpload::make('photo')
                 ]),
             ]);
     }
@@ -46,8 +42,8 @@ class GalleryResource extends Resource
     {
         return $table
             ->columns([
-                // SpatieMediaLibraryImageColumn::make('photo')
-                ImageColumn::make('photo')
+                ImageColumn::make('logo'),
+                TextColumn::make('name'),
             ])
             ->filters([
                 //
@@ -72,9 +68,9 @@ class GalleryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListGalleries::route('/'),
-            'create' => Pages\CreateGallery::route('/create'),
-            'edit' => Pages\EditGallery::route('/{record}/edit'),
+            'index' => Pages\ListPartnerts::route('/'),
+            'create' => Pages\CreatePartnert::route('/create'),
+            'edit' => Pages\EditPartnert::route('/{record}/edit'),
         ];
     }
 }

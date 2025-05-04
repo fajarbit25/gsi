@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\About;
+use App\Models\Contact;
+use App\Models\Faq;
 use App\Models\Gallery;
+use App\Models\Partnert;
 use App\Models\Service;
 use App\Models\Setting;
 use App\Models\VisionMision;
@@ -23,6 +26,9 @@ class HomeController extends Controller
             'vision'    => VisionMision::where('segment', 'Visi')->select('value')->get(),
             'mision'    => VisionMision::where('segment', 'Misi')->select('value')->get(),
             'about'     => About::first(),
+            'partnert'  => Partnert::select('logo')->get(),
+            'faqs'      => Faq::select('question', 'answered')->get(),
+            'contacts'  => Contact::all(),
         ];
         return view('index', $data);
     }

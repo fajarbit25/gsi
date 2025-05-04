@@ -42,7 +42,7 @@
       <nav id="navmenu" class="navmenu">
         <ul>
           <li><a href="#hero" class="active">Home<br></a></li>
-          <li><a href="#speakers">Service</a></li>
+          <li><a href="#service">Service</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#gallery">Gallery</a></li>
           <li><a href="#visimisi">Vision & Mission</a></li>
@@ -92,35 +92,27 @@
             
           </div>
 
+          @foreach($contacts as $address)
+          
           <div class="col-lg-3 col-md-3 footer-links">
-            <h4>Balikpapan Branch Office</h4>
+            <h4> {{$address->name}} </h4>
             <div class="footer-contact pt-3">
-              <p>Balikpapan Regency Mediterania FB6 No. 14 Balikpapan - Eas Borneo</p>
-              <p class="mt-3"><strong>Phone:</strong> <span>+6281 6821 720</span></p>
-              <p><strong>Email:</strong> <span>operaional@globalsurvindo.com</span></p>
+              <p>{!! $address->address !!}</p>
+              <p class="mt-3"><strong>Phone:</strong> <span> {{$address->phone}} </span></p>
+              <p><strong>Email:</strong> <span>{{$address->email}}</span></p>
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-3 footer-links">
-            <h4>Makassar Branch Office</h4>
-            <div class="footer-contact pt-3">
-              <p>
-                Jl. H.Yasim Limpo Komp. Keyla the Mansion Blok G21 Samata 
-                South Of Sulawesi.
-              </p>
-              <p class="mt-3"><strong>Phone:</strong> <span>+62411 4860 194</span></p>
-              <p><strong>Email:</strong> <span>adm.gsi09@gmail.com</span></p>
-            </div>
-          </div>
+          @endforeach
 
           <div class="col-lg-3 col-md-3 footer-links">
             <h4>Our Services</h4>
             <ul>
-              <li><a href="#">Web Design</a></li>
-              <li><a href="#">Web Development</a></li>
-              <li><a href="#">Product Management</a></li>
-              <li><a href="#">Marketing</a></li>
-              <li><a href="#">Graphic Design</a></li>
+              @foreach($services as $serv)
+                
+              <li><a href="#service">{{ $serv->service_name }}</a></li>
+
+              @endforeach
             </ul>
           </div>
 
@@ -133,7 +125,7 @@
 
         <div class="d-flex flex-column align-items-center align-items-lg-start">
           <div>
-            © Copyright <strong><span>MyWebsite</span></strong>. All Rights Reserved
+            © Copyright <strong><span>www.globalsurvindo.com</span></strong>. All Rights Reserved
           </div>
           <div class="credits">
             Designed by <a href="https://purnamasinargemilang.co.id/">PSG</a>

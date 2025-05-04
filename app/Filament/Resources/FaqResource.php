@@ -2,25 +2,24 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\GalleryResource\Pages;
-use App\Filament\Resources\GalleryResource\RelationManagers;
-use App\Models\Gallery;
+use App\Filament\Resources\FaqResource\Pages;
+use App\Filament\Resources\FaqResource\RelationManagers;
+use App\Models\Faq;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Columns\ImageColumn;
-use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class GalleryResource extends Resource
+class FaqResource extends Resource
 {
-    protected static ?string $model = Gallery::class;
+    protected static ?string $model = Faq::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -29,15 +28,8 @@ class GalleryResource extends Resource
         return $form
             ->schema([
                 Card::make()->schema([
-                    FileUpload::make('photo')
-                    ->directory('gallery')
-                    ->visibility('public')
-                    ->imageResizeMode('cover')
-                    ->imageCropAspectRatio('1:1')
-                    ->imageResizeTargetWidth('1080')
-                    ->imageResizeTargetHeight('1080')
-                    ->required(),
-                    // SpatieMediaLibraryFileUpload::make('photo')
+                    TextInput::make('question')->required(),
+                    RichEditor::make('answered')->required(),
                 ]),
             ]);
     }
@@ -46,8 +38,8 @@ class GalleryResource extends Resource
     {
         return $table
             ->columns([
-                // SpatieMediaLibraryImageColumn::make('photo')
-                ImageColumn::make('photo')
+                TextColumn::make('question')->limit('30'),
+                TextColumn::make('answered')->limit('50'),
             ])
             ->filters([
                 //
@@ -72,9 +64,9 @@ class GalleryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListGalleries::route('/'),
-            'create' => Pages\CreateGallery::route('/create'),
-            'edit' => Pages\EditGallery::route('/{record}/edit'),
+            'index' => Pages\ListFaqs::route('/'),
+            'create' => Pages\CreateFaq::route('/create'),
+            'edit' => Pages\EditFaq::route('/{record}/edit'),
         ];
     }
 }
