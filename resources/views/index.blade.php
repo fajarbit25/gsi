@@ -102,7 +102,9 @@
       </li> --}}
       @foreach ($services as $service)
       <li class="nav-item">
-        <a class="nav-link @if ($loop->iteration == 1) active @endif" href="#service{{$service->id}}" onclick="fetchServiceApi({{$service->id}})" role="tab" data-bs-toggle="tab">PROTELEUM</a>
+        <a class="nav-link @if ($loop->iteration == 1) active @endif" href="#service{{$service->id}}" onclick="fetchServiceApi({{$service->id}})" role="tab" data-bs-toggle="tab">
+          {{$service->service_name}}
+        </a>
       </li>
       @endforeach
 
@@ -115,14 +117,14 @@
       <!-- Service -->
       <div role="tabpanel" class="col-lg-9 tab-pane fade show active" id="service{{$service->id}}">
 
-        <div class="row schedule-item">
+        {{-- <div class="row schedule-item">
           <div class="col-md-10">
 
             
             <h4>Registration</h4>
             <p>Fugit voluptas iusto maiores temporibus autem numquam magnam.</p>
           </div>
-        </div>
+        </div> --}}
 
       </div><!-- End Service -->
 
